@@ -80,7 +80,7 @@ impl Writer {
 
                 self.buffer.chars[row][col] = ScreenChar {
                     ascii_character: byte,
-                    color_code
+                    color_code,
                 };
 
                 self.column_position += 1;
@@ -94,7 +94,6 @@ impl Writer {
                 0x20..=0x7e | b'\n' => self.write_byte(byte),
                 _ => self.write_byte(0xfe),
             }
-
         }
     }
 
@@ -126,5 +125,17 @@ impl core::fmt::Write for Writer {
     fn write_str(&mut self, s: &str) -> core::fmt::Result {
         self.write_string(s);
         Ok(())
+    }
+}
+
+#[test_case]
+fn test_println_simple() {
+    crate::println!("test_println_simple output");
+}
+
+#[test_case]
+fn test_println_many() {
+    for _ in 0..300 {
+        crate::println!("test_println_many output");
     }
 }
