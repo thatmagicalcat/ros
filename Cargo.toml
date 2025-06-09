@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 bootloader = "0.9"
 lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+uart_16550 = "0.2.0"
 spin = "0.9.6"
 
 [profile.dev]
@@ -13,3 +14,9 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+
+[package.metadata.bootimage]
+test-args = [
+  "-serial",
+  "stdio"
+]

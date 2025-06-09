@@ -6,6 +6,7 @@
 #![reexport_test_harness_main = "test"]
 
 mod panic;
+mod serial;
 mod vga_buffer;
 
 #[macro_use]
@@ -23,15 +24,16 @@ pub extern "C" fn _start() -> ! {
 
 #[cfg(test)]
 pub fn test_runner(tests: &[&dyn Fn()]) {
-    println!("Running {} tests", tests.len());
+    serial_println!("Running {} tests", tests.len());
     for test in tests {
         test();
     }
 }
 
 #[test_case]
+#[allow(clippy::eq_op)]
 fn trivial_assertion() {
-    print!("trivial assertion... ");
+    serial_print!("trivial assertion...");
     assert_eq!(1, 1);
-    println!("[ok]");
+    serial_println!("[ok]");
 }
